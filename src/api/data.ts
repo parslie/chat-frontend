@@ -39,7 +39,7 @@ export const chats: Readable<Chat[]> = readable([] as Chat[], (set) => {
 
         get(groupChats).forEach((chat) => {
             for (let i = 0; i < newChats.length; i++) {
-                if (new Date(chat.date_updated) >= new Date(newChats[i].date_updated)) {
+                if (new Date(chat.date_updated) >= new Date(newChats[i].date_updated) || i === newChats.length - 1) {
                     newChats.splice(i, 0, chat);
                     break;
                 }
