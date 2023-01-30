@@ -49,14 +49,11 @@ export const chats: Readable<Chat[]> = readable([] as Chat[], (set) => {
         set(newChats);
     };
     
-    // TODO: analyze potential race conditions
-    const unsubFriend = friendChats.subscribe(orderChats);
     const unsubGroup = groupChats.subscribe(orderChats);
 
     return () => {
-        unsubFriend();
         unsubGroup();
     };
 });
 
-export const selectedGroup: Writable<Chat | null> = writable(null);
+export const selectedChat: Writable<Chat | null> = writable(null);

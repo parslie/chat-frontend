@@ -13,3 +13,9 @@ export async function fetchFriendChats() {
         friendChats.set(chats);
     });
 }
+
+export async function fetchFriendMsgs(id: number, page: number = 1) {
+    return request.get(
+        `/chat/friend/${id}/msg/page/${page}/`
+    );
+}
