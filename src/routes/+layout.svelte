@@ -1,12 +1,18 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
 	import type { Unsubscriber } from 'svelte/store';
-    import { chats, user } from '../api/data';
+    import { chats, user, type Chat, selectedGroup } from '../api/data';
 	import { fetchFriendChats } from '../api/friend';
-	import { fetchGroupChats } from '../api/group';
+	import { fetchGroupChats, fetchGroupMsgs } from '../api/group';
 	import { fetchMyself } from '../api/user';
+	import ChatButton from '../components/ChatButton.svelte';
 
     let userUnsub: Unsubscriber | undefined;
+
+    function setChat(chat: Chat) {
+        if ($selectedGroup != chat)
+            selectedGroup.set(chat);
+    }
 
     onMount(() => {
         fetchMyself();
@@ -25,7 +31,7 @@
 
 <nav>
     {#each $chats as chat}
-        <p>{chat.name}</p>
+        <ChatButton chat={chat} selected={chat == $selectedGroup} on:click={() => setChat(chat)} />
     {/each}
 </nav>
 
@@ -35,13 +41,16 @@
 
 <style>
     nav {
+        display: flex;
+        flex-direction: column;
+
         position: absolute;
         top: 0;
         left: 0;
         bottom: 0;
         width: 16rem;
 
-        background-color: #263238;
+        background-color: #ff6347;
     }
 
     main {
@@ -51,6 +60,6 @@
         bottom: 0;
         right: 0;
 
-        background-color: #37474F;
+        background-color: #ffffff;
     }
 </style>

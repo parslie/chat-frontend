@@ -13,3 +13,9 @@ export async function fetchGroupChats() {
         groupChats.set(chats);
     });
 }
+
+export async function fetchGroupMsgs(id: number, page: number = 1) {
+    return request.get(
+        `/chat/group/${id}/msg/page/${page}/`
+    );
+}

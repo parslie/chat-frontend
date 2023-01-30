@@ -58,3 +58,5 @@ export const chats: Readable<Chat[]> = readable([] as Chat[], (set) => {
         unsubGroup();
     };
 });
+
+export const selectedGroup: Writable<Chat | null> = writable(null);
